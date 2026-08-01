@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DailyFit</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+}
+
+}.navbar{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+padding:18px 40px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#111;
+backdrop-filter:blur(10px);
+z-index:1000;
+}
+
+.logo{
+font-size:26px;
+font-weight:bold;
+letter-spacing:1px;
+}
+
+#fecha{
+color:#ddd;
+font-size:16px;
+}
+
+header{
+height:100vh;
+background:url("https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1600&q=80") center/cover;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+position:relative;
+}
+
+header::before{
+content:"";
+position:absolute;
+inset:0;
+background:rgba(0,0,0,.65);
+}
+
+.hero{
+position:relative;
+z-index:1;
+}
+
+.hero h1{
+font-size:60px;
+margin-bottom:15px;
+color:white;
+}
+
+.hero p{
+font-size:20px;
+color:white;
+margin-bottom:30px;
+}
+
+button{
+padding:15px 35px;
+border:none;
+background:white;
+color:black;
+font-size:18px;
+font-weight:bold;
+border-radius:50px;
+cursor:pointer;
+transition:.3s;
+}
+
+button:hover{
+transform:scale(1.05);
+}
+
+main{
+max-width:1100px;
+margin:auto;
+padding:50px 20px;
+}
+
+.card{
+background:#1c1c1c;
+padding:25px;
+border-radius:20px;
+margin-bottom:25px;
+box-shadow:0 10px 30px rgba(0,0,0,.3);
+}
+
+.card h2{
+margin-bottom:20px;
+}
+
+#rutina li{
+list-style:none;
+padding:12px;
+margin:10px 0;
+background:#2d2d2d;
+border-radius:10px;
+}
+
+footer{
+text-align:center;
+padding:30px;
+color:#999;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+<div class="logo">🏋 DAILYFIT</div>
+
+<div id="fecha"></div>
+
+</nav>
+
+<header>
+
+<div class="hero">
+
+<h1>DAILYFIT</h1>
+
+<p>Una rutina nueva cada día.</p>
+
+<button onclick="generarRutina()">
+Generar Rutina
+
+</button>
+
+</div>
+
+</header>
+
+<main>
+
+<div class="card">
+
+<h2>Rutina de Hoy</h2>
+
+<ul id="rutina">
+
+<li>Pulsa el botón para comenzar.</li>
+
+</ul>
+
+</div>
+
+</main>
+
+<footer>
+
+Proyecto de Informática • DailyFit
+
+</footer>
+
+<script>
+
+const hoy = new Date();
+
+window.onload = function () {
+    const opciones = {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+    };
+    document.getElementById("fecha").innerHTML =
+        hoy.toLocaleDateString("es-ES", opciones);
+};
+
+const ejercicios = [
+"Flexiones","Sentadillas","Plancha","Burpees","Mountain Climbers",
+"Zancadas","Fondos","Abdominales","Jumping Jacks","Press Militar",
+"Remo","Peso Muerto","Curl Bíceps","Dominadas","Press Banca"
+];
+
+function generarRutina(){
+    let lista=document.getElementById("rutina");
+    lista.innerHTML="";
+    let usados=[];
+    while(usados.length<5){
+        let n=Math.floor(Math.random()*ejercicios.length);
+        if(!usados.includes(n)) usados.push(n);
+    }
+    usados.forEach(i=>{
+        let li=document.createElement("li");
+        let series=Math.floor(Math.random()*3)+3;
+        let reps=Math.floor(Math.random()*8)+8;
+        li.innerHTML="✔ "+ejercicios[i]+" — "+series+" x "+reps;
+        lista.appendChild(li);
+    });
+}
+
+</script>
+
+</body>
+</html>
